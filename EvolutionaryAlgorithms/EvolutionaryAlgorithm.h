@@ -42,7 +42,6 @@ private:
     string fileName;
     int populationSize;
     string selection;
-    bool elite;
     string crossover;
     double probCrossover;
     double probMutation;
