@@ -19,7 +19,7 @@ int main(int argc, const char * argv[]) {
     
     //Make sure number of command line arguments is correct (print if not)
     
-    if (argc != 9){
+    if (argc != 10){
         cout << "You've entered an incorrect number of arguments to the program!" << endl;
         cout << "   file name   = the name of the file containing the problem (string)" << endl;
         cout << "   individuals = number of individuals in population (int)" << endl;
@@ -39,24 +39,25 @@ int main(int argc, const char * argv[]) {
         cout << "    disInterval  = show best interval (int)" << endl;
         exit(1);
     }
-
+    
     //If correct number of command line arguments, convert to proper type
     
     else {
-        ea.setFileName(argv[0]);
-        ea.setPopulationSize(stoi(argv[1]));
-        if (argv[2] == TS || argv[2] == RS || argv[2] == BS){
-            ea.setSelection(argv[2]);
+        ea.setFileName(argv[1]);
+        ea.setPopulationSize(stoi(argv[2]));
+        
+        if (argv[3] == TS || argv[3] == RS || argv[3] == BS){
+            ea.setSelection(argv[3]);
         }
         else {
             cout << "Invalid second argument specifying selection type.  Please use:" << endl;
-            cout << "   ts  = tournament selection - implies ts1" << endl;
+            cout << "   ts  = tournament selection" << endl;
             cout << "   rs   = rank based selection" << endl;
             cout << "   bs   = Boltzmann selection" << endl;
             exit(1);
         }
-        if (argv[3] == ONE_C || argv[3] == UNIFORM){
-            ea.setCrossover(argv[3]);
+        if (argv[4] == ONE_C || argv[4] == UNIFORM){
+            ea.setCrossover(argv[4]);
         }
         else {
             cout << "Invalid fourth argument specifying crossover type.  Please use:" << endl;
@@ -64,13 +65,13 @@ int main(int argc, const char * argv[]) {
             cout << "   uc  = uniform crossover" << endl;
             exit(1);
         }
-        ea.setProbCrossover(stod(argv[4]));
-        ea.setProbMutation(stod(argv[5]));
-        ea.setMaxGenerations(stoi(argv[6]));
-        ea.setAlgorithm(argv[7]);
-        ea.setPrintInterval(stoi(argv[8]));
+        ea.setProbCrossover(stod(argv[5]));
+        ea.setProbMutation(stod(argv[6]));
+        ea.setMaxGenerations(stoi(argv[7]));
+        ea.setAlgorithm(argv[8]);
+        ea.setPrintInterval(stoi(argv[9]));
         
     }
-
+    
     return 0;
 }

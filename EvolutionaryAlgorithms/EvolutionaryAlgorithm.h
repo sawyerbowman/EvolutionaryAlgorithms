@@ -15,14 +15,14 @@
 using namespace std;
 
 //Constants for checking parameters passed in command line arguments
-
-#define RS "rs"
-#define TS "ts"
-#define BS "bs"
-#define ONE_C "1c"
-#define UNIFORM "uc"
+const string RS = "rs";
+const string TS = "ts";
+const string BS = "bs";
+const string ONE_C = "1c";
+const string UNIFORM = "uc";
 
 class EvolutionaryAlgorithm {
+    
 public:
     EvolutionaryAlgorithm();
     EvolutionaryAlgorithm(string name, int pop, string select, string cross, double probCross, double probMut, int maxGen, string alg, int printInt);
@@ -36,7 +36,6 @@ public:
     void setMaxGenerations(int maxGen) { maxGenerations = maxGen; }
     void setAlgorithm(string alg) { algorithm = alg; }
     void setPrintInterval(int printInt) { printInterval = printInt; }
-    
     
 private:
     string fileName;
