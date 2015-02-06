@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05ED46861A845DC100E60704 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED46851A845DC100E60704 /* main.cpp */; };
+		05ED468E1A84621E00E60704 /* EvolutionaryAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		05ED46821A845DC100E60704 /* EvolutionaryAlgorithms */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EvolutionaryAlgorithms; sourceTree = BUILT_PRODUCTS_DIR; };
 		05ED46851A845DC100E60704 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EvolutionaryAlgorithm.cpp; sourceTree = "<group>"; };
+		05ED468D1A84621E00E60704 /* EvolutionaryAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvolutionaryAlgorithm.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				05ED46851A845DC100E60704 /* main.cpp */,
+				05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */,
+				05ED468D1A84621E00E60704 /* EvolutionaryAlgorithm.h */,
 			);
 			path = EvolutionaryAlgorithms;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05ED46861A845DC100E60704 /* main.cpp in Sources */,
+				05ED468E1A84621E00E60704 /* EvolutionaryAlgorithm.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
