@@ -25,7 +25,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(){
 }
 
 /**
- *Constructor initializing a EvolutionaryAlgorithm object with all the parameters set.
+ *Constructor initializing a EvolutionaryAlgorithm object with Genetic properties.
  */
 
 EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select, string cross, double probCross, double probMut, int maxGen, string alg, int printInt) {
@@ -35,6 +35,24 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select
     crossover = cross;
     probCrossover = probCross;
     probMutation = probMut;
+    maxGenerations = maxGen;
+    algorithm = alg;
+    printInterval = printInt;
+    
+    population = new Population(populationSize);
+}
+
+/**
+ *Constructor initializing a EvolutionaryAlgorithm object with PBIL properties.
+ */
+
+EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, double neg, double probMut, double mutAmt, int maxGen, string alg, int printInt) {
+    fileName = name;
+    populationSize = pop;
+    posLearnRate = pos;
+    negLearnRate = neg;
+    probMutation = probMut;
+    mutationAmount = mutAmt;
     maxGenerations = maxGen;
     algorithm = alg;
     printInterval = printInt;

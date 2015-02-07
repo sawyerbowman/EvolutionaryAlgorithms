@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include "Population.h"
 
 using namespace std;
 
@@ -24,29 +25,33 @@ const string UNIFORM = "uc";
 class EvolutionaryAlgorithm {
     
 public:
+    //Initialize an empty EvolutionaryAlgorithm object
     EvolutionaryAlgorithm();
+    //Initialize EvolutionaryAlgorithm object for Genetic
     EvolutionaryAlgorithm(string name, int pop, string select, string cross, double probCross, double probMut, int maxGen, string alg, int printInt);
-    
-    void setFileName(string name) { fileName = name; }
-    void setPopulationSize(int size) { populationSize = size; }
-    void setSelection(string select) { selection = select; }
-    void setCrossover(string cross) {crossover = cross; }
-    void setProbCrossover(double probCross) { probCrossover = probCross; }
-    void setProbMutation(double probMut) { probMutation = probMut; }
-    void setMaxGenerations(int maxGen) { maxGenerations = maxGen; }
-    void setAlgorithm(string alg) { algorithm = alg; }
-    void setPrintInterval(int printInt) { printInterval = printInt; }
+    //Initialize EvolutionaryAlgorithm object for PBIL
+    EvolutionaryAlgorithm(string name, int pop, double pos, double neg, double probMut, double mutAmt, int maxGen, string alg, int printInt);
     
 private:
+    //Shared properties between Genetic and PBIL
     string fileName;
     int populationSize;
-    string selection;
-    string crossover;
-    double probCrossover;
     double probMutation;
     int maxGenerations;
     string algorithm;
     int printInterval;
+    
+    //Genetic specific properties
+    string selection;
+    string crossover;
+    double probCrossover;
+    Population* population;
+    
+    //PBIL specific properties
+    double posLearnRate;
+    double negLearnRate;
+    double mutationAmount;
+    
 };
 
 #endif /* defined(__EvolutionaryAlgorithms__EvolutionaryAlgorithm__) */

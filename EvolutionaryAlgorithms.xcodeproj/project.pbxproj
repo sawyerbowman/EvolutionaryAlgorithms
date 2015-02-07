@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		05ED46861A845DC100E60704 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED46851A845DC100E60704 /* main.cpp */; };
 		05ED468E1A84621E00E60704 /* EvolutionaryAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */; };
+		05ED46911A85EE4E00E60704 /* Population.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED468F1A85EE4E00E60704 /* Population.cpp */; };
+		05ED46941A85EF1D00E60704 /* Individual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED46921A85EF1D00E60704 /* Individual.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,10 @@
 		05ED46851A845DC100E60704 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EvolutionaryAlgorithm.cpp; sourceTree = "<group>"; };
 		05ED468D1A84621E00E60704 /* EvolutionaryAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvolutionaryAlgorithm.h; sourceTree = "<group>"; };
+		05ED468F1A85EE4E00E60704 /* Population.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Population.cpp; sourceTree = "<group>"; };
+		05ED46901A85EE4E00E60704 /* Population.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Population.h; sourceTree = "<group>"; };
+		05ED46921A85EF1D00E60704 /* Individual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Individual.cpp; sourceTree = "<group>"; };
+		05ED46931A85EF1D00E60704 /* Individual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Individual.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,10 @@
 				05ED46851A845DC100E60704 /* main.cpp */,
 				05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */,
 				05ED468D1A84621E00E60704 /* EvolutionaryAlgorithm.h */,
+				05ED468F1A85EE4E00E60704 /* Population.cpp */,
+				05ED46901A85EE4E00E60704 /* Population.h */,
+				05ED46921A85EF1D00E60704 /* Individual.cpp */,
+				05ED46931A85EF1D00E60704 /* Individual.h */,
 			);
 			path = EvolutionaryAlgorithms;
 			sourceTree = "<group>";
@@ -123,6 +133,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05ED46941A85EF1D00E60704 /* Individual.cpp in Sources */,
+				05ED46911A85EE4E00E60704 /* Population.cpp in Sources */,
 				05ED46861A845DC100E60704 /* main.cpp in Sources */,
 				05ED468E1A84621E00E60704 /* EvolutionaryAlgorithm.cpp in Sources */,
 			);
@@ -238,6 +250,7 @@
 				05ED468B1A845DC100E60704 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

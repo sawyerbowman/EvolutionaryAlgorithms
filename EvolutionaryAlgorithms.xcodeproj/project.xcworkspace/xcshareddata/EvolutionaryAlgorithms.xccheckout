@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>7CA889F6-75EC-407C-A902-EE64CE322FA2</string>
+	<string>5DB0BCDC-3FA2-48B1-A189-C39BE75B13C0</string>
 	<key>IDESourceControlProjectName</key>
 	<string>EvolutionaryAlgorithms</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>0A40BE12A1A61D14B630BF8534F75F9928D1F903</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Evolutionary%20Algorithms</string>
+			<string>EvolutionaryAlgorithms</string>
 		</dict>
 	</array>
 </dict>
