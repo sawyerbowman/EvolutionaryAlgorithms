@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05067CB21A86872800C579C7 /* Problem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05067CB01A86872800C579C7 /* Problem.cpp */; };
+		05067CB51A88453400C579C7 /* Clause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05067CB31A88453400C579C7 /* Clause.cpp */; };
 		05ED46861A845DC100E60704 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED46851A845DC100E60704 /* main.cpp */; };
 		05ED468E1A84621E00E60704 /* EvolutionaryAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */; };
 		05ED46911A85EE4E00E60704 /* Population.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05ED468F1A85EE4E00E60704 /* Population.cpp */; };
@@ -26,6 +28,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		05067CB01A86872800C579C7 /* Problem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Problem.cpp; sourceTree = "<group>"; };
+		05067CB11A86872800C579C7 /* Problem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Problem.h; sourceTree = "<group>"; };
+		05067CB31A88453400C579C7 /* Clause.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clause.cpp; sourceTree = "<group>"; };
+		05067CB41A88453400C579C7 /* Clause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clause.h; sourceTree = "<group>"; };
 		05ED46821A845DC100E60704 /* EvolutionaryAlgorithms */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EvolutionaryAlgorithms; sourceTree = BUILT_PRODUCTS_DIR; };
 		05ED46851A845DC100E60704 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		05ED468C1A84621E00E60704 /* EvolutionaryAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EvolutionaryAlgorithm.cpp; sourceTree = "<group>"; };
@@ -73,6 +79,10 @@
 				05ED46901A85EE4E00E60704 /* Population.h */,
 				05ED46921A85EF1D00E60704 /* Individual.cpp */,
 				05ED46931A85EF1D00E60704 /* Individual.h */,
+				05067CB01A86872800C579C7 /* Problem.cpp */,
+				05067CB11A86872800C579C7 /* Problem.h */,
+				05067CB31A88453400C579C7 /* Clause.cpp */,
+				05067CB41A88453400C579C7 /* Clause.h */,
 			);
 			path = EvolutionaryAlgorithms;
 			sourceTree = "<group>";
@@ -135,6 +145,8 @@
 			files = (
 				05ED46941A85EF1D00E60704 /* Individual.cpp in Sources */,
 				05ED46911A85EE4E00E60704 /* Population.cpp in Sources */,
+				05067CB51A88453400C579C7 /* Clause.cpp in Sources */,
+				05067CB21A86872800C579C7 /* Problem.cpp in Sources */,
 				05ED46861A845DC100E60704 /* main.cpp in Sources */,
 				05ED468E1A84621E00E60704 /* EvolutionaryAlgorithm.cpp in Sources */,
 			);

@@ -7,13 +7,13 @@ CFLAGS=-c -Wall
 
 all:	evolAlg
 
-evolAlg:	main.o EvolutionaryAlgorithm.o Population.o Individual.o
-	$(CC) main.o EvolutionaryAlgorithm.o Population.o Individual.o -o evolAlg
+evolAlg:	main.o EvolutionaryAlgorithm.o Population.o Individual.o Problem.o Clause.o
+	$(CC) main.o EvolutionaryAlgorithm.o Population.o Individual.o Problem.o Clause.o -o evolAlg
 
 main.o:	main.cpp EvolutionaryAlgorithm.h
 	$(CC) $(CFLAGS) main.cpp
 
-EvolutionaryAlgorithm.o:	EvolutionaryAlgorithm.cpp EvolutionaryAlgorithm.h Population.h
+EvolutionaryAlgorithm.o:	EvolutionaryAlgorithm.cpp EvolutionaryAlgorithm.h Population.h Problem.h
 	$(CC) $(CFLAGS) EvolutionaryAlgorithm.cpp
 
 Population.o:	Population.cpp Population.h Individual.h
@@ -21,6 +21,12 @@ Population.o:	Population.cpp Population.h Individual.h
 
 Individual.o:	Individual.cpp Individual.h
 	$(CC) $(CFLAGS) Individual.cpp
+
+Problem.o:	Problem.cpp Problem.h Clause.h
+	$(CC) $(CFLAGS) Problem.cpp
+
+Clause.o:	Clause.cpp Clause.h
+	$(CC) $(CFLAGS) Clause.cpp
 
 clean:
 	rm *o evolAlg

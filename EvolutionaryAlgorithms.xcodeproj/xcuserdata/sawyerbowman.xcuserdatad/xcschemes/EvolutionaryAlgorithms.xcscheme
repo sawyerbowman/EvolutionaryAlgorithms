@@ -43,7 +43,8 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "/Users/sawyerbowman/Desktop/Bowdoin College/Senior Year/Nature Inspired Algorithms/EvolutionaryAlgorithms/EvolutionaryAlgorithms"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -59,7 +60,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "test"
+            argument = "../assign1-ga-pbil-for-maxsat/maxsat-problems/maxsat-crafted/MAXCUT/DIMACS_MOD/brock200_1.clq.cnf"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

@@ -18,9 +18,9 @@ int main(int argc, const char * argv[]) {
     if (argc != 10){
         cout << "You've entered an incorrect number of arguments to the program!" << endl;
         cout << "For the Genetic Algorithm, please input the following parameters:" << endl;
-        cout << "   file name   = the name of the file containing the problem (string)" << endl;
-        cout << "   individuals = number of individuals in population (int)" << endl;
-        cout << "   selection   = type of selection of breeding pool (string):" << endl;
+        cout << "   file name       = the name of the file containing the problem (string)" << endl;
+        cout << "   individuals     = number of individuals in population (int)" << endl;
+        cout << "   selection       = type of selection of breeding pool (string):" << endl;
         cout << "                     ts   = tournament selection" << endl;
         cout << "                     rs   = rank based selection" << endl;
         cout << "                     bs   = Boltzmann selection" << endl;
@@ -46,8 +46,8 @@ int main(int argc, const char * argv[]) {
         cout << "   pC                      = mutation probability (double)" << endl;
         cout << "   generations             = max number of generations to run (int)" << endl;
         cout << "   algorithm               = type of algorithm to run (string)" << endl;
-        cout << "                       g     = Genetic Algorithm" << endl;
-        cout << "                       p     = Population Based Incremental Learning (PBIL)" << endl;
+        cout << "                               g     = Genetic Algorithm" << endl;
+        cout << "                               p     = Population Based Incremental Learning (PBIL)" << endl;
         cout << "   disInterval             = show best interval (int)" << endl;
         exit(1);
     }

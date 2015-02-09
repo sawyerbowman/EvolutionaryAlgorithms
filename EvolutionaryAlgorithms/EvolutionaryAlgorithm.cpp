@@ -40,6 +40,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select
     printInterval = printInt;
     
     population = new Population(populationSize);
+    problem = new Problem(fileName);
 }
 
 /**
@@ -56,4 +57,6 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, d
     maxGenerations = maxGen;
     algorithm = alg;
     printInterval = printInt;
+    
+    problem = new Problem(fileName);
 }
