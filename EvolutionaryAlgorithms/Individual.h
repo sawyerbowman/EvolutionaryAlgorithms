@@ -11,16 +11,26 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <vector>
+#include "Clause.h"
 
 using namespace std;
 
 class Individual {
 public:
-    //TODO: think about proper parameters for this method
+    //Constructors
     Individual();
+    Individual(int numVariables);
+    
     //TODO: implement fitness and breed functions
-    void calcFitness();
+    //For fitness, get variables from clause, check if satisifed in proper location of string
+    int calcFitness(vector<Clause> clauses);
+    void setFitness(int newFit) { fitness = newFit; }
+    
     void breed();
+    
+    void printSequence();
+    void printFitness() { cout << fitness << endl; }
     
     //TODO: figure out how to make individual work with PBIL
     
@@ -30,8 +40,8 @@ private:
     void mutate();
     
     //Properties of an invidual
-    string sequence;
-    double fitness;
+    vector<bool> sequence;
+    int fitness;
     
     
 };

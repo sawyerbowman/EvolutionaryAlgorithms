@@ -9,22 +9,6 @@
 #include "EvolutionaryAlgorithm.h"
 
 /**
- *Constructor initializing an empty EvolutionaryAlgorithm object.
- */
-
-EvolutionaryAlgorithm::EvolutionaryAlgorithm(){
-    fileName = "";
-    populationSize = 0;
-    selection = "";
-    crossover = "";
-    probCrossover = 0;
-    probMutation = 0;
-    maxGenerations = 0;
-    algorithm = "";
-    printInterval = 0;
-}
-
-/**
  *Constructor initializing a EvolutionaryAlgorithm object with Genetic properties.
  */
 
@@ -39,8 +23,8 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select
     algorithm = alg;
     printInterval = printInt;
     
-    population = new Population(populationSize);
     problem = new Problem(fileName);
+    population = new Population(populationSize, problem->getNumVariables());
 }
 
 /**
@@ -60,3 +44,27 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, d
     
     problem = new Problem(fileName);
 }
+
+/**
+ *The main body of the program. This is responsible for calling fitness for
+ *each individual of the population, performing selection, breeding, and
+ *repeating the generational cycle until the max fitness (best satisfiability)
+ *is found.
+ */
+
+void EvolutionaryAlgorithm::run(){
+    //TODO: think about doing this in a do while loop
+    
+    //Calculate the fitness of each individual and set it
+    for(Individual indiv : population->getIndividuals()){
+        indiv.setFitness(indiv.calcFitness(problem->getClauses()));
+        indiv.printFitness();
+    }
+    
+    
+    
+}
+
+
+
+

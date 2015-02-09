@@ -22,6 +22,10 @@ class Problem {
 public:
     Problem(string fileName);
     
+    int getNumVariables() { return numVariables; }
+    int getNumClauses() { return numClauses; }
+    vector<Clause> getClauses() { return clauses; }
+    
 private:
     void parseFirstLine(string line);
     void parseClauseLine(string line);
@@ -34,7 +38,7 @@ private:
     
     //TODO: Initialize vector of Clauses
     //Clause* clauses;
-    vector<Clause*> clauses;
+    vector<Clause> clauses;
     
 };
 

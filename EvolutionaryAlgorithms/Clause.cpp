@@ -8,6 +8,12 @@
 
 #include "Clause.h"
 
+/**
+ *This is a constructor for a clause. It takes a line, divides it into
+ *words, and converts each word to an integer and stores it into the
+ *array.
+ */
+
 Clause::Clause(string line){
     string word;
     stringstream lineParser (line);
@@ -18,6 +24,10 @@ Clause::Clause(string line){
         variables.push_back(stoi(word));
     }
 }
+
+/**
+ *This method prints the clause that calls it
+ */
 
 void Clause::printClause() {
     for (int i = 0; i < variables.size(); i++){

@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 #include "Individual.h"
 
 using namespace std;
@@ -18,9 +19,11 @@ using namespace std;
 class Population {
 public:
     Population();
-    Population(int numIndiv);
+    Population(int numIndiv, int numVariables);
     //TODO: implement selection method
     void selection(string select);
+    
+    vector<Individual> getIndividuals() { return individuals; }
     
     //TODO: implement methods to make population work with PBIL
     
@@ -30,8 +33,8 @@ private:
     void rankSelect();
     void boltzmannSelect();
     
-    //Array of Individuals representing a population
-    Individual* individuals;
+    //Vector of Individuals representing a population
+    vector<Individual> individuals;
     
 };
 

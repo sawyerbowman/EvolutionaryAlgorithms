@@ -106,6 +106,7 @@ int main(int argc, const char * argv[]) {
             EvolutionaryAlgorithm ea = EvolutionaryAlgorithm(name, pop, select, cross, pCross, pMut, maxGen, alg, printInt);
             
             //TODO:implement run method
+            ea.run();
         }
         else {
             pos = stod(argv[3]);
@@ -117,6 +118,7 @@ int main(int argc, const char * argv[]) {
             EvolutionaryAlgorithm ea = EvolutionaryAlgorithm(name, pop, pos, neg, pMut, mutAmt, maxGen, alg, printInt);
             
             //TODO:implement run method
+            ea.run();
             
         }
         

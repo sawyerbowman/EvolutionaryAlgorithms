@@ -9,14 +9,14 @@
 #include "Population.h"
 
 /**
- *Constructor creating a new population of individuals
+ *Constructor creating a new population of individuals with random
+ *genetic sequence
  */
 
-Population::Population(int numIndiv) {
-    individuals = new Individual[numIndiv];
+Population::Population(int numIndiv, int numVariables) {
     for (int i = 0; i < numIndiv; i++){
-        //TODO: need to think of parameters to pass into Individual... sequence and initial fitness of 0?
-        Individual* newIndiv = new Individual();
-        individuals[i] = *newIndiv;
+        Individual* newIndiv = new Individual(numVariables);
+        //newIndiv->printSequence();
+        individuals.push_back(*newIndiv);
     }
 }

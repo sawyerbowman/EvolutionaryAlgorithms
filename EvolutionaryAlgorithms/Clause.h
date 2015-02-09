@@ -21,6 +21,8 @@ class Clause {
 public:
     Clause(string line);
     
+    vector<int> getVariables() { return variables; }
+    
     void printClause();
     
 private:
