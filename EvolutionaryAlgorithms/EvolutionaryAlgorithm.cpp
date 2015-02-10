@@ -24,7 +24,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select
     printInterval = printInt;
     
     problem = new Problem(fileName);
-    population = new Population(populationSize, problem->getNumVariables());
+    population = new Population(populationSize, problem->getNumVariables(), problem->getClauses());
 }
 
 /**
@@ -55,11 +55,14 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, d
 void EvolutionaryAlgorithm::run(){
     //TODO: think about doing this in a do while loop
     
-    //Calculate the fitness of each individual and set it
-    for(Individual indiv : population->getIndividuals()){
-        indiv.setFitness(indiv.calcFitness(problem->getClauses()));
-        indiv.printFitness();
-    }
+    //A loop for testing to make sure individual fitness is set
+    //for(Individual indiv : population->getIndividuals()){
+        //indiv.printFitness();
+    //}
+    
+    population->selection(selection);
+    population->printBreedingPoolSize();
+    cout << populationSize << endl;
     
     
     

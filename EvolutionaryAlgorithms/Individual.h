@@ -20,17 +20,21 @@ class Individual {
 public:
     //Constructors
     Individual();
-    Individual(int numVariables);
+    Individual(int numVariables, vector<Clause> clauses);
     
     //TODO: implement fitness and breed functions
     //For fitness, get variables from clause, check if satisifed in proper location of string
     int calcFitness(vector<Clause> clauses);
     void setFitness(int newFit) { fitness = newFit; }
+    void printFitness() { cout << fitness << endl; }
+    int getFitness() { return fitness; }
     
     void breed();
     
     void printSequence();
-    void printFitness() { cout << fitness << endl; }
+    
+    void setRank(int newRank) { rank = newRank; }
+    int getRank() { return rank; }
     
     //TODO: figure out how to make individual work with PBIL
     
@@ -42,6 +46,7 @@ private:
     //Properties of an invidual
     vector<bool> sequence;
     int fitness;
+    int rank;
     
     
 };

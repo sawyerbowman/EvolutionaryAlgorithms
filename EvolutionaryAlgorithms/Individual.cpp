@@ -14,7 +14,7 @@
  *Each index+1 corresponds to a variable.
  */
 
-Individual::Individual(int numVariables) {
+Individual::Individual(int numVariables, vector<Clause> clauses) {
     
     for (int i = 0; i < numVariables; i++){
         int randomGene = rand() % 2;
@@ -25,9 +25,8 @@ Individual::Individual(int numVariables) {
             sequence.push_back(true);
         }
     }
-    
-    //Assume fitness of 0 until we set it later
-    fitness = 0;
+
+    fitness = calcFitness(clauses);
 }
 
 /**
