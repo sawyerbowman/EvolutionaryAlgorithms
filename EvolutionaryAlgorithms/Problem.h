@@ -30,14 +30,12 @@ private:
     void parseFirstLine(string line);
     void parseClauseLine(string line);
     
-    
     string problemType;
     string problemForm;
     int numVariables;
     int numClauses;
     
-    //TODO: Initialize vector of Clauses
-    //Clause* clauses;
+    //Vector of clauses
     vector<Clause> clauses;
     
 };

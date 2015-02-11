@@ -53,21 +53,39 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, d
  */
 
 void EvolutionaryAlgorithm::run(){
-    //TODO: think about doing this in a do while loop
+    Individual best = population->getBestIndividual();
     
-    //A loop for testing to make sure individual fitness is set
-    //for(Individual indiv : population->getIndividuals()){
-        //indiv.printFitness();
-    //}
-    
-    population->selection(selection);
-    population->printBreedingPoolSize();
-    cout << populationSize << endl;
-    
-    
-    
+    //while generation < maxGenerations
+    int generation = 0;
+    while (generation < maxGenerations){
+        population->selection(selection);
+        population->breed(crossover, probCrossover, probMutation, problem->getClauses());
+        best = population->getBestIndividual();
+        if (generation % printInterval == 0){
+            cout << "o " << best.getFitness() << endl;
+        }
+        if (isOptimal(best)){
+            break;
+        }
+        generation++;
+    }
 }
 
+/**
+ *This method checks to see if a given solution is optimal. If it is,
+ *the evolution stops, and the solution is printed out.
+ */
 
+bool EvolutionaryAlgorithm::isOptimal(Individual best){
+    if (best.getFitness() == problem->getNumClauses()){
+        cout << "c Best Solution = " << best.getFitness() << endl;
+        //TODO: introduce timers
+        cout << "c Program terminated in x seconds" << endl;
+        cout << "s OPTIMUM FOUND" << endl;
+        //TODO: introduce variable string
+        return true;
+    }
+    return false;
+}
 
 

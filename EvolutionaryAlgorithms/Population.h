@@ -23,6 +23,7 @@ const int k = 1;
 
 //Sorts ascending by fitness (lowest to highest)
 static bool sortByFitness(Individual firstIndiv, Individual secondIndiv) { return firstIndiv.getFitness() < secondIndiv.getFitness(); }
+static bool maxByFitness(Individual firstIndiv, Individual secondIndiv) { return firstIndiv.getFitness() < secondIndiv.getFitness(); }
 
 class Population {
 public:
@@ -31,17 +32,23 @@ public:
 
     void selection(string select);
     
-    vector<Individual> getIndividuals() { return individuals; }
+    void breed(string crossover, double probCrossover, double probMutation, vector<Clause> clauses);
     
+    vector<Individual> getIndividuals() { return individuals; }
     vector<Individual> getBreedingPool() { return breedingPool; }
+    Individual getBestIndividual();
+    
     void printBreedingPoolSize() { cout << breedingPool.size() << endl; }
     
     //TODO: implement methods to make population work with PBIL
     
 private:
+    //helper functions for select()
     void tournamentSelect();
     void rankSelect();
     void boltzmannSelect();
+    
+    Individual getRandomIndividualAndErase();
     
     //Vector of Individuals representing a population
     vector<Individual> individuals;

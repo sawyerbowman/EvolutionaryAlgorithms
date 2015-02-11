@@ -30,6 +30,15 @@ Individual::Individual(int numVariables, vector<Clause> clauses) {
 }
 
 /**
+ *Alternate constructor to build an Individual (used when the sequence is known)
+ */
+
+Individual::Individual(vector<bool> newSequence, vector<Clause> clauses){
+    sequence = newSequence;
+    fitness = calcFitness(clauses);
+}
+
+/**
  *This method simply prints out the genetic sequence per individual (1 and 0)
  */
 
@@ -65,3 +74,81 @@ int Individual::calcFitness(vector<Clause> clauses) {
     }
     return clausesSatisfied;
 }
+
+/**
+ *This method breeds two individuals together. It performs the crossover method,
+ *given by a command line argument, with a certain probability. If crossover occurs,
+ *a new sequence is generated. Otherwise, the child sequence remains the same as the
+ *first individual (the one calling the method). Then, mutate is called, which has
+ *a chance of mutating each gene of a certain probability. A new individual is then
+ *created and returned.
+ */
+
+Individual* Individual::breed(Individual indiv, string cross, double crossProb, double mutProb, vector<Clause> clauses){
+    vector<bool> newSequence;
+    
+    double crossoverProb = (double)rand()/RAND_MAX;
+    if (crossProb > crossoverProb){
+        newSequence = crossover(indiv.getSequence(), cross);
+    }
+    else {
+        newSequence = sequence;
+    }
+    
+    newSequence = mutate(newSequence, mutProb);
+
+    return new Individual(newSequence, clauses);
+}
+
+/**
+ *This method strictly performs the crossover portion of breeding. It creates
+ *one new genetic sequence, either by crossing on a single point or by randomly
+ *selecting genes from each parent sequence.
+ */
+
+vector<bool> Individual::crossover(vector<bool> secondSequence, string method){
+    vector<bool> newSequence;
+    if (method == "1c"){
+        int index = rand() % sequence.size();
+        newSequence.insert(newSequence.end(), sequence.begin(), sequence.begin()+index);
+        newSequence.insert(newSequence.end(), secondSequence.begin()+index, secondSequence.end());
+    }
+    else {
+        int count = 0;
+        while (newSequence.size() != sequence.size()){
+            int randomBit = rand() % 2;
+            if (randomBit == 0){
+                newSequence.push_back(sequence[count]);
+                count++;
+            }
+            else {
+                newSequence.push_back(secondSequence[count]);
+                count++;
+            }
+        }
+    }
+    return newSequence;
+}
+
+/**
+ *This method strictly performs the mutation portion of the breeding. With some
+ *probability, the gene in the child sequence will be flipped (ex. true to false).
+ */
+
+vector<bool> Individual::mutate(vector<bool> newSequence, double mutProb){
+    for (int i = 0; i < newSequence.size(); i++){
+        double randomProb = (double)rand()/RAND_MAX;
+        if (mutProb > randomProb){
+            if (newSequence[i] == true){
+                newSequence[i] = false;
+            }
+            else {
+                newSequence[i] = true;
+            }
+        }
+    }
+    return newSequence;
+}
+
+
+

@@ -39,6 +39,8 @@ public:
     void run();
     
 private:
+    bool isOptimal(Individual best);
+    
     //Shared properties between Genetic and PBIL
     string fileName;
     int populationSize;

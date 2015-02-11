@@ -75,7 +75,7 @@ void Population::tournamentSelect(){
         
         //Fill the tournament with candidates until M is reached, delete candidates from overall pool
         int drawCount = 0;
-        while (drawCount < M){
+        while (drawCount < M && individualPool.size() > 0){
             int random = rand() % individualPool.size();
             tournamentParticipants.push_back(individualPool[random]);
             individualPool.erase(individualPool.begin()+random);
@@ -84,7 +84,7 @@ void Population::tournamentSelect(){
        
         //Find the best k individuals, place them in the breeding pool, delete from tournament
         int poolCount = 0;
-        while (poolCount < k){
+        while (poolCount < k && tournamentParticipants.size() > 0){
             //was thinking about using *max_element, but sort works best for now
             sort(tournamentParticipants.begin(), tournamentParticipants.end(), sortByFitness);
             breedingPool.push_back(tournamentParticipants.back());
@@ -103,6 +103,47 @@ void Population::boltzmannSelect(){
 }
 
 /**
- *
+ *This method chooses two random individuals from the breeding pool, and creates
+ *two new individuals to replace them in the next generation. It calls upon crossover
+ *and mutation to potentially change the gene sequence of the offspring.
  */
+
+void Population::breed(string crossover, double probCrossover, double probMutation, vector<Clause> clauses){
+    vector<Individual> newGeneration;
+    
+    //TODO: what is population size is odd?
+    while(!individuals.empty()){
+        Individual indiv1 = getRandomIndividualAndErase();
+        Individual indiv2 = getRandomIndividualAndErase();
+
+        Individual* child1 = indiv1.breed(indiv2, crossover, probCrossover, probMutation, clauses);
+        newGeneration.push_back(*child1);
+        
+        Individual* child2 = indiv2.breed(indiv1, crossover, probCrossover, probMutation, clauses);
+        newGeneration.push_back(*child2);
+    }
+    
+    individuals = newGeneration;
+}
+
+/**
+ *This method is responsible for getting an individual from the population
+ *storing it, erasing it from the vector, and returning it.
+ */
+
+Individual Population::getRandomIndividualAndErase(){
+    int randomIndex = rand() % individuals.size();
+    Individual indiv = individuals[randomIndex];
+    individuals.erase(individuals.begin() + randomIndex);
+    return indiv;
+}
+
+/**
+ *This method returns the best individual in the individuals vector.
+ */
+
+Individual Population::getBestIndividual(){
+    return *max_element(individuals.begin(), individuals.end(), maxByFitness);
+}
+
 

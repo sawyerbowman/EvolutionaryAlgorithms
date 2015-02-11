@@ -60,7 +60,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "../assign1-ga-pbil-for-maxsat/maxsat-problems/maxsat-crafted/MAXCUT/DIMACS_MOD/brock200_1.clq.cnf"
+            argument = "../assign1-ga-pbil-for-maxsat/maxsat-problems/maxsat-crafted/MAXCUT/SPINGLASS/t3pm3-5555.spn.cnf"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
