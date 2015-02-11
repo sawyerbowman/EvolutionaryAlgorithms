@@ -112,15 +112,22 @@ void Population::breed(string crossover, double probCrossover, double probMutati
     vector<Individual> newGeneration;
     
     //TODO: what is population size is odd?
-    while(!individuals.empty()){
+    int childrenPerPair = (individuals.size()/breedingPool.size())*2;
+    
+    while(!breedingPool.empty()){
         Individual indiv1 = getRandomIndividualAndErase();
         Individual indiv2 = getRandomIndividualAndErase();
-
-        Individual* child1 = indiv1.breed(indiv2, crossover, probCrossover, probMutation, clauses);
-        newGeneration.push_back(*child1);
         
-        Individual* child2 = indiv2.breed(indiv1, crossover, probCrossover, probMutation, clauses);
-        newGeneration.push_back(*child2);
+        for (int i = 0; i < childrenPerPair; i++){
+            if (i % 2 == 0){
+                Individual* child1 = indiv1.breed(indiv2, crossover, probCrossover, probMutation, clauses);
+                newGeneration.push_back(*child1);
+            }
+            else {
+                Individual* child2 = indiv2.breed(indiv1, crossover, probCrossover, probMutation, clauses);
+                newGeneration.push_back(*child2);
+            }
+        }
     }
     
     individuals = newGeneration;
@@ -132,9 +139,9 @@ void Population::breed(string crossover, double probCrossover, double probMutati
  */
 
 Individual Population::getRandomIndividualAndErase(){
-    int randomIndex = rand() % individuals.size();
-    Individual indiv = individuals[randomIndex];
-    individuals.erase(individuals.begin() + randomIndex);
+    int randomIndex = rand() % breedingPool.size();
+    Individual indiv = breedingPool[randomIndex];
+    breedingPool.erase(breedingPool.begin() + randomIndex);
     return indiv;
 }
 
