@@ -69,7 +69,7 @@ void EvolutionaryAlgorithm::run(){
     int generation = 0;
     while (generation < maxGenerations){
         
-        if (quitEvolving(genSinceBest, globalBest, start)){
+        if (quitEvolving(genSinceBest, false, globalBest, start)){
             break;
         }
         
@@ -106,6 +106,7 @@ void EvolutionaryAlgorithm::run(){
         generation++;
         genSinceBest++;
     }
+    quitEvolving(genSinceBest, true, globalBest, start);
 }
 
 /**
@@ -119,7 +120,8 @@ bool EvolutionaryAlgorithm::isSolved(Individual best, clock_t start){
         cout << "c Program terminated in x seconds" << endl;
         cout << "c Program terminated in " << (clock() - start)/(double)CLOCKS_PER_SEC << " seconds" << endl;
         cout << "s PROBLEM SOLVED" << endl;
-        //TODO: introduce variable string
+        cout << "v ";
+        best.printVariableSequence();
         return true;
     }
     return false;
@@ -130,13 +132,18 @@ bool EvolutionaryAlgorithm::isSolved(Individual best, clock_t start){
  *been seen to terminate, then quit the program.
  */
 
-bool EvolutionaryAlgorithm::quitEvolving(int generationsRun, Individual globalBest, clock_t start){
-    if (quitEvolve <= generationsRun){
-        cout << "c Terminated program after " << generationsRun << " generations since best solution encountered" << endl;
+bool EvolutionaryAlgorithm::quitEvolving(int generationsRun, bool done, Individual globalBest, clock_t start){
+    if (quitEvolve <= generationsRun || done){
+        if (done){
+            cout << "c Ran though all generations and didn't satisfy all clauses" << endl;
+        }
+        else {
+            cout << "c Terminated program after " << generationsRun << " generations since best solution encountered" << endl;
+        }
         cout << "c Best solution found = " << globalBest.getFitness() << endl;
         cout << "c Program terminated in " << (clock() - start)/(double)CLOCKS_PER_SEC << " seconds" << endl;
-        cout << "s PROBLEM SOLVED" << endl;
-        //TODO: introduce variable string
+        cout << "v ";
+        globalBest.printVariableSequence();
         return true;
     }
     return false;

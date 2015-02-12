@@ -150,5 +150,21 @@ vector<bool> Individual::mutate(vector<bool> newSequence, double mutProb){
     return newSequence;
 }
 
+/**
+ *Print the actual variable names and if they have a minus (not) preceding or not.
+ */
+
+void Individual::printVariableSequence(){
+    for (int i = 0; i < sequence.size(); i++){
+        if (sequence[i]){
+            cout << i+1 << " ";
+        }
+        else {
+            cout << -1*(i+1) << " ";
+        }
+    }
+    cout << "" << endl;
+}
+
 
 

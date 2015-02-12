@@ -32,6 +32,7 @@ public:
     Individual* breed(Individual indiv, string cross, double crossProb, double mutProb, vector<Clause> clauses);
     
     void printSequence();
+    void printVariableSequence();
     
     void setRank(int newRank) { rank = newRank; }
     int getRank() { return rank; }

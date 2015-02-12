@@ -57,6 +57,9 @@ void Population::rankSelect(){
     //Sort the individuals by fitness
     sort(individuals.begin(), individuals.end(), sortByFitness);
     
+    //empty breeding pool
+    breedingPool.clear();
+    
     //Calculate sum of series for probability calculation later
     double seriesSum = (individuals.size() * (individuals.size()+1))/2;
     
@@ -87,6 +90,10 @@ void Population::rankSelect(){
 
 void Population::tournamentSelect(){
     vector<Individual> individualPool = individuals;
+    
+    //empty breeding pool
+    breedingPool.clear();
+    
     //need to draw M from vector, select k from M, place k in pool
     while (breedingPool.size() != individuals.size()){
         vector<Individual> tournamentParticipants;
@@ -94,7 +101,7 @@ void Population::tournamentSelect(){
         //Fill the tournament with candidates until M is reached, delete candidates from overall pool
         int drawCount = 0;
         while (drawCount < M){
-            int randIndex = (double)rand()/RAND_MAX;
+            int randIndex = rand() % individuals.size();
             tournamentParticipants.push_back(individuals[randIndex]);
             drawCount++;
         }
@@ -117,6 +124,9 @@ void Population::tournamentSelect(){
 void Population::boltzmannSelect(){
     //Sort the individuals by fitness
     sort(individuals.begin(), individuals.end(), sortByFitness);
+    
+    //empty breeding pool
+    breedingPool.clear();
     
     //Calculate sum of series for probability calculation later
     double seriesSum;

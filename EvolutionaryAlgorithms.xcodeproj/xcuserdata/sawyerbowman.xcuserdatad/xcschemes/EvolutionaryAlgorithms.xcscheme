@@ -68,36 +68,36 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "ts"
-            isEnabled = "NO">
+            argument = "bs"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = ".1"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "1c"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = ".075"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = ".7"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = ".02"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = ".01"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = ".05"
+            argument = ".01"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = ".05"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "1000"
@@ -105,18 +105,18 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "g"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "p"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "10"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "10"
+            argument = "100"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
