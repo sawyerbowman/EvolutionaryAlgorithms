@@ -12,10 +12,11 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+    srand( time( NULL ) );
     
     //Make sure number of command line arguments is correct (print if not)
 
-    if (argc != 10){
+    if (argc < 9){
         cout << "You've entered an incorrect number of arguments to the program!" << endl;
         cout << "For the Genetic Algorithm, please input the following parameters:" << endl;
         cout << "   file name       = the name of the file containing the problem (string)" << endl;
@@ -24,16 +25,17 @@ int main(int argc, const char * argv[]) {
         cout << "                     ts   = tournament selection" << endl;
         cout << "                     rs   = rank based selection" << endl;
         cout << "                     bs   = Boltzmann selection" << endl;
-        cout << "    crossover    = crossover method (string):" << endl;
+        cout << "    crossover      = crossover method (string):" << endl;
         cout << "                     1c   = 1-point crossover" << endl;
         cout << "                     uc   = uniform crossover" << endl;
-        cout << "    pC           = crossover probability (double)" << endl;
-        cout << "    pM           = mutation probability (double)" << endl;
-        cout << "    generations  = max number of generations to run (int)" << endl;
-        cout << "    algorithm    = type of algorithm to run (string)" << endl;
+        cout << "    pC             = crossover probability (double)" << endl;
+        cout << "    pM             = mutation probability (double)" << endl;
+        cout << "    generations    = max number of generations to run (int)" << endl;
+        cout << "    algorithm      = type of algorithm to run (string)" << endl;
         cout << "                     g     = Genetic Algorithm" << endl;
         cout << "                     p     = Population Based Incremental Learning (PBIL)" << endl;
-        cout << "    disInterval  = show best interval (int)" << endl;
+        cout << "    OPTIONAL disInterval   = show best interval (int)" << endl;
+        cout << "    OPTIONAL staleGen      = decide to stop evolving if no positive change in x generations (int)" << endl;
         
         cout << "" << endl;
         
@@ -48,7 +50,8 @@ int main(int argc, const char * argv[]) {
         cout << "   algorithm               = type of algorithm to run (string)" << endl;
         cout << "                               g     = Genetic Algorithm" << endl;
         cout << "                               p     = Population Based Incremental Learning (PBIL)" << endl;
-        cout << "   disInterval             = show best interval (int)" << endl;
+        cout << "   OPTIONAL disInterval    = show best interval (int)" << endl;
+        cout << "   OPTIONAL staleGen       = decide to stop evolving if no positive change in x generations (int)" << endl;
         exit(1);
     }
     
@@ -62,7 +65,14 @@ int main(int argc, const char * argv[]) {
         string name = argv[1];
         int pop = stoi(argv[2]);
         int maxGen = stoi(argv[7]);
-        int printInt = stoi(argv[9]);
+        int printInt = 0;
+        int staleGen = maxGen;
+        if (argc == 10 || argc == 11){
+            printInt = stoi(argv[9]);
+        }
+        if (argc == 11){
+            staleGen = stoi(argv[10]);
+        }
         
         //These variables represent different values between Genetic and PBIL
         
@@ -103,7 +113,7 @@ int main(int argc, const char * argv[]) {
             pMut = stod(argv[6]);
             
             //Create a Genetic object (with the appropriate parameters)
-            EvolutionaryAlgorithm ea = EvolutionaryAlgorithm(name, pop, select, cross, pCross, pMut, maxGen, alg, printInt);
+            EvolutionaryAlgorithm ea = EvolutionaryAlgorithm(name, pop, select, cross, pCross, pMut, maxGen, alg, printInt, staleGen);
             
             //TODO:implement run method
             ea.run();
@@ -115,7 +125,7 @@ int main(int argc, const char * argv[]) {
             mutAmt = stod(argv[6]);
             
             //Create a PBIL object (with the appropriate parameters)
-            EvolutionaryAlgorithm ea = EvolutionaryAlgorithm(name, pop, pos, neg, pMut, mutAmt, maxGen, alg, printInt);
+            EvolutionaryAlgorithm ea = EvolutionaryAlgorithm(name, pop, pos, neg, pMut, mutAmt, maxGen, alg, printInt, staleGen);
             
             //TODO:implement run method
             ea.run();

@@ -13,6 +13,8 @@
 #include <iostream>
 #include "Population.h"
 #include "Problem.h"
+#include <cstdio>
+#include <ctime>
 
 using namespace std;
 
@@ -30,16 +32,22 @@ public:
     EvolutionaryAlgorithm();
     
     //Initialize EvolutionaryAlgorithm object for Genetic
-    EvolutionaryAlgorithm(string name, int pop, string select, string cross, double probCross, double probMut, int maxGen, string alg, int printInt);
+    EvolutionaryAlgorithm(string name, int pop, string select, string cross, double probCross, double probMut, int maxGen, string alg, int printInt, int staleGen);
     
     //Initialize EvolutionaryAlgorithm object for PBIL
-    EvolutionaryAlgorithm(string name, int pop, double pos, double neg, double probMut, double mutAmt, int maxGen, string alg, int printInt);
+    EvolutionaryAlgorithm(string name, int pop, double pos, double neg, double probMut, double mutAmt, int maxGen, string alg, int printInt, int staleGen);
     
     //The body of the algorithm goes here
     void run();
     
 private:
-    bool isOptimal(Individual best);
+    bool isSolved(Individual best, clock_t start);
+    bool quitEvolving(int generationsRun, Individual globalBest, clock_t start);
+    
+    //Updates to Probability Vector
+    void updateTowardsBest(Individual best);
+    void updateAwayFromWorst(Individual best, Individual worst);
+    void mutateProbVector();
     
     //Shared properties between Genetic and PBIL
     string fileName;
@@ -48,17 +56,19 @@ private:
     int maxGenerations;
     string algorithm;
     int printInterval;
+    int quitEvolve;
+    Population* population;
     
     //Genetic specific properties
     string selection;
     string crossover;
     double probCrossover;
-    Population* population;
     
     //PBIL specific properties
     double posLearnRate;
     double negLearnRate;
     double mutationAmount;
+    vector<double> probabilityVector;
     
     //Problem object to contain problem from file
     Problem* problem;

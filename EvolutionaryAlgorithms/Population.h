@@ -29,8 +29,8 @@ static bool maxByFitness(Individual firstIndiv, Individual secondIndiv) { return
 
 class Population {
 public:
-    Population();
     Population(int numIndiv, int numVariables, vector<Clause> clauses);
+    Population(int numIndiv, int numVariables, vector<Clause> clauses, vector<double> probVec);
 
     void selection(string select);
     
@@ -39,6 +39,9 @@ public:
     vector<Individual> getIndividuals() { return individuals; }
     vector<Individual> getBreedingPool() { return breedingPool; }
     Individual getBestIndividual();
+    Individual getWorstIndividual();
+    
+    void updatePopulation(int numIndiv, vector<double> probVec, vector<Clause> clauses);
     
     void printBreedingPoolSize() { cout << breedingPool.size() << endl; }
     
@@ -51,6 +54,8 @@ private:
     void boltzmannSelect();
     
     Individual getRandomIndividual();
+    
+    Individual createIndivFromProbVec(vector<double> probVec, vector<Clause> clauses);
     
     //Vector of Individuals representing a population
     vector<Individual> individuals;

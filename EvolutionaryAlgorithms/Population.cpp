@@ -21,6 +21,17 @@ Population::Population(int numIndiv, int numVariables, vector<Clause> clauses) {
 }
 
 /**
+ *Alternate constructor for the PBIL problem
+ */
+
+Population::Population(int numIndiv, int numVariables, vector<Clause> clauses, vector<double> probVec){
+    for (int i = 0; i < numIndiv; i++){
+        Individual newIndiv = createIndivFromProbVec(probVec, clauses);
+        individuals.push_back(newIndiv);
+    }
+}
+
+/**
  *This method takes in the selection method passed as a command line parameter
  *and decides which selection to do.
  */
@@ -173,4 +184,43 @@ Individual Population::getBestIndividual(){
     return *max_element(individuals.begin(), individuals.end(), maxByFitness);
 }
 
+/**
+ *This method returns the worst individual in the individuals vector
+ */
+
+Individual Population::getWorstIndividual(){
+    return *min_element(individuals.begin(), individuals.end(), maxByFitness);
+}
+
+/**
+ *This method replaces the population with a new set of individuals made in 
+ *concordance with the probability vector.
+ */
+
+void Population::updatePopulation(int numIndiv, vector<double> probVec, vector<Clause> clauses){
+    vector<Individual> newPopulation;
+    for (int i = 0; i < numIndiv; i++){
+        newPopulation.push_back(createIndivFromProbVec(probVec, clauses));
+    }
+    individuals = newPopulation;
+}
+
+/**
+ *This method actually creates the individual from the probability vector.
+ */
+
+Individual Population::createIndivFromProbVec(vector<double> probVec, vector<Clause> clauses){
+    vector<bool> newSequence;
+    for (double prob : probVec){
+        double newProb = (double)rand()/RAND_MAX;
+        if (prob > newProb){
+            newSequence.push_back(true);
+        }
+        else {
+            newSequence.push_back(false);
+        }
+    }
+    Individual* newIndiv = new Individual(newSequence, clauses);
+    return *newIndiv;
+}
 

@@ -12,7 +12,7 @@
  *Constructor initializing a EvolutionaryAlgorithm object with Genetic properties.
  */
 
-EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select, string cross, double probCross, double probMut, int maxGen, string alg, int printInt) {
+EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select, string cross, double probCross, double probMut, int maxGen, string alg, int printInt, int staleGen) {
     fileName = name;
     populationSize = pop;
     selection = select;
@@ -22,6 +22,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select
     maxGenerations = maxGen;
     algorithm = alg;
     printInterval = printInt;
+    quitEvolve = staleGen;
     
     problem = new Problem(fileName);
     population = new Population(populationSize, problem->getNumVariables(), problem->getClauses());
@@ -31,7 +32,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, string select
  *Constructor initializing a EvolutionaryAlgorithm object with PBIL properties.
  */
 
-EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, double neg, double probMut, double mutAmt, int maxGen, string alg, int printInt) {
+EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, double neg, double probMut, double mutAmt, int maxGen, string alg, int printInt, int staleGen) {
     fileName = name;
     populationSize = pop;
     posLearnRate = pos;
@@ -41,8 +42,13 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, d
     maxGenerations = maxGen;
     algorithm = alg;
     printInterval = printInt;
+    quitEvolve = staleGen;
     
     problem = new Problem(fileName);
+    for (int i = 0; i < problem->getNumVariables(); i++){
+        probabilityVector.push_back((double)rand()/RAND_MAX);
+    }
+    population = new Population(populationSize, problem->getNumVariables(), problem->getClauses(), probabilityVector);
 }
 
 /**
@@ -53,21 +59,52 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(string name, int pop, double pos, d
  */
 
 void EvolutionaryAlgorithm::run(){
-    Individual best = population->getBestIndividual();
+    //start the clock
+    clock_t start = clock();
+    
+    Individual globalBest = population->getBestIndividual();
+    int genSinceBest = 0;
     
     //while generation < maxGenerations
     int generation = 0;
     while (generation < maxGenerations){
-        population->selection(selection);
-        population->breed(crossover, probCrossover, probMutation, problem->getClauses());
-        best = population->getBestIndividual();
+        
+        if (quitEvolving(genSinceBest, globalBest, start)){
+            break;
+        }
+        
+        //Run the Genetic Algorithm
+        if (algorithm == "g"){
+            population->selection(selection);
+            population->breed(crossover, probCrossover, probMutation, problem->getClauses());
+        }
+        
+        //Run the PBIL Algorithm
+        else {
+            Individual newBest = population->getBestIndividual();
+            Individual newWorst = population->getWorstIndividual();
+            updateTowardsBest(newBest);
+            updateAwayFromWorst(newBest, newWorst);
+            mutateProbVector();
+            population->updatePopulation(populationSize, probabilityVector, problem->getClauses());
+        }
+        
+        //Update the global best if necessary
+        Individual best = population->getBestIndividual();
+        if (best.getFitness() > globalBest.getFitness()){
+            globalBest = best;
+            genSinceBest = 0;
+        }
+        
+        //Print out the best of the generation (with interval)
         if (generation % printInterval == 0){
             cout << "o " << best.getFitness() << endl;
         }
-        if (isOptimal(best)){
+        if (isSolved(best, start)){
             break;
         }
         generation++;
+        genSinceBest++;
     }
 }
 
@@ -76,16 +113,74 @@ void EvolutionaryAlgorithm::run(){
  *the evolution stops, and the solution is printed out.
  */
 
-bool EvolutionaryAlgorithm::isOptimal(Individual best){
+bool EvolutionaryAlgorithm::isSolved(Individual best, clock_t start){
     if (best.getFitness() == problem->getNumClauses()){
-        cout << "c Best Solution = " << best.getFitness() << endl;
-        //TODO: introduce timers
+        cout << "c Generation's best solution = " << best.getFitness() << endl;
         cout << "c Program terminated in x seconds" << endl;
-        cout << "s OPTIMUM FOUND" << endl;
+        cout << "c Program terminated in " << (clock() - start)/(double)CLOCKS_PER_SEC << " seconds" << endl;
+        cout << "s PROBLEM SOLVED" << endl;
         //TODO: introduce variable string
         return true;
     }
     return false;
+}
+
+/**
+ *If the user specifies a number of generations run since a new best has
+ *been seen to terminate, then quit the program.
+ */
+
+bool EvolutionaryAlgorithm::quitEvolving(int generationsRun, Individual globalBest, clock_t start){
+    if (quitEvolve <= generationsRun){
+        cout << "c Terminated program after " << generationsRun << " generations since best solution encountered" << endl;
+        cout << "c Best solution found = " << globalBest.getFitness() << endl;
+        cout << "c Program terminated in " << (clock() - start)/(double)CLOCKS_PER_SEC << " seconds" << endl;
+        cout << "s PROBLEM SOLVED" << endl;
+        //TODO: introduce variable string
+        return true;
+    }
+    return false;
+}
+
+/**
+ *This method updates the probability vector towards the best candidate solution
+ */
+
+void EvolutionaryAlgorithm::updateTowardsBest(Individual best) {
+    for (int i = 0; i < probabilityVector.size(); i++){
+        probabilityVector[i] = probabilityVector[i]*(1.0-posLearnRate)+best.getSequence()[i]*posLearnRate;
+    }
+}
+
+/**
+ *This method updates the probability vector away from the worst candidate solution
+ */
+
+void EvolutionaryAlgorithm::updateAwayFromWorst(Individual best, Individual worst){
+    for (int i = 0; i < probabilityVector.size(); i++){
+        if (best.getSequence()[i] != worst.getSequence()[i]){
+            probabilityVector[i] = probabilityVector[i]*(1.0-negLearnRate)+best.getSequence()[i]*negLearnRate;
+        }
+    }
+}
+
+/**
+ *This method mutates the probability vector
+ */
+
+void EvolutionaryAlgorithm::mutateProbVector(){
+    for (int i = 0; i < probabilityVector.size(); i++){
+        if ((double)rand()/RAND_MAX < probMutation){
+            int mutDirection;
+            if (rand() % 2 == 1){
+                mutDirection = 1;
+            }
+            else {
+                mutDirection = 0;
+            }
+            probabilityVector[i] = probabilityVector[i]*(1.0-mutationAmount)+mutDirection*(mutationAmount);
+        }
+    }
 }
 
 
