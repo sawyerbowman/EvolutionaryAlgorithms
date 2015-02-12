@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 #include "Individual.h"
 #include "Clause.h"
 
@@ -20,6 +21,7 @@ using namespace std;
 
 const int M = 2;
 const int k = 1;
+const double e = exp(1.0);
 
 //Sorts ascending by fitness (lowest to highest)
 static bool sortByFitness(Individual firstIndiv, Individual secondIndiv) { return firstIndiv.getFitness() < secondIndiv.getFitness(); }
@@ -48,7 +50,7 @@ private:
     void rankSelect();
     void boltzmannSelect();
     
-    Individual getRandomIndividualAndErase();
+    Individual getRandomIndividual();
     
     //Vector of Individuals representing a population
     vector<Individual> individuals;

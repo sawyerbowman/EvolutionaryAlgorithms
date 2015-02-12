@@ -47,87 +47,109 @@ void Population::rankSelect(){
     sort(individuals.begin(), individuals.end(), sortByFitness);
     
     //Calculate sum of series for probability calculation later
-    double seriesSum = (individuals.size() * individuals.size()-1)/2;
+    double seriesSum = (individuals.size() * (individuals.size()+1))/2;
     
-    //Loop through the sorted list, assigning ranks and determining breeding pool
-    for (int i = 0; i < individuals.size(); i++){
-        individuals[i].setRank(i+1);
-        double indivProbability = (individuals[i].getRank()/seriesSum);
-        double actualProbability = (double)rand()/RAND_MAX;
-        if (indivProbability > actualProbability){
-            breedingPool.push_back(individuals[i]);
+    //While breeding pool not full, add new individual
+    while (breedingPool.size() != individuals.size()){
+        
+        //Used to select a new individual
+        double randomProb = (double)rand()/RAND_MAX;
+        double count = 0;
+        
+        //Sum up the probabilities while iterating
+        for (int i = 0; i < individuals.size(); i++){
+            count += (i+1)/seriesSum;
+            if (count > randomProb){
+                breedingPool.push_back(individuals[i]);
+                //restart the for loop and continue until breedingPool is full
+                break;
+            }
         }
     }
 }
 
 /**
  *While there are individuals remaining, this method takes M individuals
- *and places them into a tournament and eliminates them from the main
- *population. Then, the k best individuals are chosen from this tournament
- *and added to the breeding pool.
+ *and places them into a tournament. Then, the k best individuals are 
+ *chosen from this tournament and added to the breeding pool.
  */
 
 void Population::tournamentSelect(){
     vector<Individual> individualPool = individuals;
-    //need to draw M from vector, delete M from vector, place k in pool
-    while (!individualPool.empty()){
+    //need to draw M from vector, select k from M, place k in pool
+    while (breedingPool.size() != individuals.size()){
         vector<Individual> tournamentParticipants;
         
         //Fill the tournament with candidates until M is reached, delete candidates from overall pool
         int drawCount = 0;
-        while (drawCount < M && individualPool.size() > 0){
-            int random = rand() % individualPool.size();
-            tournamentParticipants.push_back(individualPool[random]);
-            individualPool.erase(individualPool.begin()+random);
+        while (drawCount < M){
+            int randIndex = (double)rand()/RAND_MAX;
+            tournamentParticipants.push_back(individuals[randIndex]);
             drawCount++;
         }
        
         //Find the best k individuals, place them in the breeding pool, delete from tournament
         int poolCount = 0;
-        while (poolCount < k && tournamentParticipants.size() > 0){
-            //was thinking about using *max_element, but sort works best for now
-            sort(tournamentParticipants.begin(), tournamentParticipants.end(), sortByFitness);
-            breedingPool.push_back(tournamentParticipants.back());
-            tournamentParticipants.erase(tournamentParticipants.end()-1);
+        while (poolCount < k && breedingPool.size() != individuals.size()){
+            Individual champion = *max_element(tournamentParticipants.begin(), tournamentParticipants.end(), maxByFitness);
+            breedingPool.push_back(champion);
             poolCount++;
         }
     }
 }
 
 /**
- *
+ *A very similar method to rankSelect, but uses e^fitness instead of rank
+ *to calculate probability of being selected.
  */
 
 void Population::boltzmannSelect(){
+    //Sort the individuals by fitness
+    sort(individuals.begin(), individuals.end(), sortByFitness);
     
+    //Calculate sum of series for probability calculation later
+    double seriesSum;
+    for (int i = 0; i < individuals.size(); i++){
+        seriesSum += pow(e, individuals[i].getFitness());
+    }
+    
+    //While breeding pool not full, add new individual
+    while (breedingPool.size() != individuals.size()){
+        
+        //Used to select a new individual
+        double randomProb = (double)rand()/RAND_MAX;
+        double count = 0;
+        
+        //Sum up the probabilities while iterating
+        for (int i = 0; i < individuals.size(); i++){
+            count += pow(e,individuals[i+1].getFitness())/seriesSum;
+            if (count > randomProb){
+                breedingPool.push_back(individuals[i]);
+                //restart the for loop and continue until breedingPool is full
+                break;
+            }
+        }
+    }
 }
 
 /**
  *This method chooses two random individuals from the breeding pool, and creates
- *two new individuals to replace them in the next generation. It calls upon crossover
+ *new individuals to replace them in the next generation. It calls upon crossover
  *and mutation to potentially change the gene sequence of the offspring.
  */
 
 void Population::breed(string crossover, double probCrossover, double probMutation, vector<Clause> clauses){
     vector<Individual> newGeneration;
     
-    //TODO: what is population size is odd?
-    int childrenPerPair = (individuals.size()/breedingPool.size())*2;
-    
-    while(!breedingPool.empty()){
-        Individual indiv1 = getRandomIndividualAndErase();
-        Individual indiv2 = getRandomIndividualAndErase();
+    //fill up newGeneration until it reaches the set population size
+    while(newGeneration.size() != individuals.size()){
+        //get two random individuals
+        Individual indiv1 = getRandomIndividual();
+        Individual indiv2 = getRandomIndividual();
         
-        for (int i = 0; i < childrenPerPair; i++){
-            if (i % 2 == 0){
-                Individual* child1 = indiv1.breed(indiv2, crossover, probCrossover, probMutation, clauses);
-                newGeneration.push_back(*child1);
-            }
-            else {
-                Individual* child2 = indiv2.breed(indiv1, crossover, probCrossover, probMutation, clauses);
-                newGeneration.push_back(*child2);
-            }
-        }
+        //breed the 2 individuals together to create 1 child
+        Individual* child = indiv1.breed(indiv2, crossover, probCrossover, probMutation, clauses);
+        newGeneration.push_back(*child);
     }
     
     individuals = newGeneration;
@@ -135,14 +157,12 @@ void Population::breed(string crossover, double probCrossover, double probMutati
 
 /**
  *This method is responsible for getting an individual from the population
- *storing it, erasing it from the vector, and returning it.
+ *and returning it.
  */
 
-Individual Population::getRandomIndividualAndErase(){
+Individual Population::getRandomIndividual(){
     int randomIndex = rand() % breedingPool.size();
-    Individual indiv = breedingPool[randomIndex];
-    breedingPool.erase(breedingPool.begin() + randomIndex);
-    return indiv;
+    return breedingPool[randomIndex];
 }
 
 /**
