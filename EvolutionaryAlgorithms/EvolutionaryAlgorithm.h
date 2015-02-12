@@ -41,8 +41,8 @@ public:
     void run();
     
 private:
-    bool isSolved(Individual best, clock_t start);
-    bool quitEvolving(int generationsRun, bool done, Individual globalBest, clock_t start);
+    void isSolved(Individual best, clock_t start);
+    void quitEvolving(int generationsRun, bool done, Individual globalBest, clock_t start);
     
     //Updates to Probability Vector
     void updateTowardsBest(Individual best);

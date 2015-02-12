@@ -69,9 +69,7 @@ void EvolutionaryAlgorithm::run(){
     int generation = 0;
     while (generation < maxGenerations){
         
-        if (quitEvolving(genSinceBest, false, globalBest, start)){
-            break;
-        }
+        quitEvolving(genSinceBest, false, globalBest, start);
         
         //Run the Genetic Algorithm
         if (algorithm == "g"){
@@ -100,9 +98,7 @@ void EvolutionaryAlgorithm::run(){
         if (generation % printInterval == 0){
             cout << "o " << best.getFitness() << endl;
         }
-        if (isSolved(best, start)){
-            break;
-        }
+        isSolved(globalBest, start);
         generation++;
         genSinceBest++;
     }
@@ -114,7 +110,7 @@ void EvolutionaryAlgorithm::run(){
  *the evolution stops, and the solution is printed out.
  */
 
-bool EvolutionaryAlgorithm::isSolved(Individual best, clock_t start){
+void EvolutionaryAlgorithm::isSolved(Individual best, clock_t start){
     if (best.getFitness() == problem->getNumClauses()){
         cout << "c Generation's best solution = " << best.getFitness() << endl;
         cout << "c Program terminated in x seconds" << endl;
@@ -122,9 +118,8 @@ bool EvolutionaryAlgorithm::isSolved(Individual best, clock_t start){
         cout << "s PROBLEM SOLVED" << endl;
         cout << "v ";
         best.printVariableSequence();
-        return true;
+        exit(1);
     }
-    return false;
 }
 
 /**
@@ -132,7 +127,7 @@ bool EvolutionaryAlgorithm::isSolved(Individual best, clock_t start){
  *been seen to terminate, then quit the program.
  */
 
-bool EvolutionaryAlgorithm::quitEvolving(int generationsRun, bool done, Individual globalBest, clock_t start){
+void EvolutionaryAlgorithm::quitEvolving(int generationsRun, bool done, Individual globalBest, clock_t start){
     if (quitEvolve <= generationsRun || done){
         if (done){
             cout << "c Ran though all generations and didn't satisfy all clauses" << endl;
@@ -144,9 +139,8 @@ bool EvolutionaryAlgorithm::quitEvolving(int generationsRun, bool done, Individu
         cout << "c Program terminated in " << (clock() - start)/(double)CLOCKS_PER_SEC << " seconds" << endl;
         cout << "v ";
         globalBest.printVariableSequence();
-        return true;
+        exit(1);
     }
-    return false;
 }
 
 /**
