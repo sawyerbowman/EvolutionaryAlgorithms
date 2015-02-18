@@ -143,7 +143,7 @@ void Population::boltzmannSelect(){
         
         //Sum up the probabilities while iterating
         for (int i = 0; i < individuals.size(); i++){
-            count += pow(e,individuals[i+1].getFitness())/seriesSum;
+            count += pow(e,individuals[i].getFitness())/seriesSum;
             if (count > randomProb){
                 breedingPool.push_back(individuals[i]);
                 //restart the for loop and continue until breedingPool is full

@@ -65,7 +65,7 @@ int main(int argc, const char * argv[]) {
         string name = argv[1];
         int pop = stoi(argv[2]);
         int maxGen = stoi(argv[7]);
-        int printInt = 0;
+        int printInt = 1;
         int staleGen = maxGen;
         if (argc == 10 || argc == 11){
             printInt = stoi(argv[9]);

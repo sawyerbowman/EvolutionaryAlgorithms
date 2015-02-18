@@ -23,10 +23,10 @@ public:
     Individual(vector<bool> newSequence, vector<Clause> clauses);
     
     //For fitness, get variables from clause, check if satisifed in proper location of string
-    int calcFitness(vector<Clause> clauses);
+    double calcFitness(vector<Clause> clauses);
     void setFitness(int newFit) { fitness = newFit; }
     void printFitness() { cout << fitness << endl; }
-    int getFitness() { return fitness; }
+    double getFitness() { return fitness; }
     
     //Breed function
     Individual* breed(Individual indiv, string cross, double crossProb, double mutProb, vector<Clause> clauses);
@@ -48,7 +48,7 @@ private:
     
     //Properties of an invidual
     vector<bool> sequence;
-    int fitness;
+    double fitness;
     int rank;
     
     

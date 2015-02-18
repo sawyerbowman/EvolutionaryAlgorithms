@@ -55,7 +55,7 @@ void Individual::printSequence() {
  *the gene satisfies the clause.
  */
 
-int Individual::calcFitness(vector<Clause> clauses) {
+double Individual::calcFitness(vector<Clause> clauses) {
     int clausesSatisfied = 0;
     for (Clause clause : clauses){
         for (int variable : clause.getVariables()){
@@ -72,7 +72,7 @@ int Individual::calcFitness(vector<Clause> clauses) {
             }
         }
     }
-    return clausesSatisfied;
+    return (double)clausesSatisfied/clauses.size()*100;
 }
 
 /**
