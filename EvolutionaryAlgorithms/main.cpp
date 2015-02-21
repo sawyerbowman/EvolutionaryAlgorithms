@@ -45,7 +45,7 @@ int main(int argc, const char * argv[]) {
         cout << "   positive learning rate  = for the best-individual update (double):" << endl;
         cout << "   negative learning rate  = for the worst-individual update (double):" << endl;
         cout << "   pM                      = mutation probability (double)" << endl;
-        cout << "   pC                      = mutation probability (double)" << endl;
+        cout << "   mA                      = mutation amount (double)" << endl;
         cout << "   generations             = max number of generations to run (int)" << endl;
         cout << "   algorithm               = type of algorithm to run (string)" << endl;
         cout << "                               g     = Genetic Algorithm" << endl;
